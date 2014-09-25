@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "TranslateBao",
+  "version": "0.0.1",
+  "author": "kenticny",
+  "permissions": [
+    "contextMenus",
+    "http://openapi.baidu.com/*"
+  ],
+  "icons": {
+    "128": "assets/images/icon-128.png"
+  },
+  "description": "It's just a Translate if you want",
+  "browser_action": {
+    "default_icon": "assets/images/icon-128.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "js": [
+      "assets/javascripts/jquery-1.11.1.min.js", 
+      "assets/javascripts/contentscript.js"
+    ]
+  }]
+}

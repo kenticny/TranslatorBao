@@ -16,7 +16,7 @@ function onClickHandler(info, tab) {
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 chrome.contextMenus.create({
-  title: "Demo",
+  title: "TranslateBao",
   contexts: ["selection"],
   id: "translate-selection"
 });

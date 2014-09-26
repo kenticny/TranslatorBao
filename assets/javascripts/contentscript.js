@@ -10,5 +10,5 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if($("#translatebao").length > 0) {
     $("#translatebao").remove();
   }
-  $("body").append("<div id='translatebao' style='position:absolute;top:100px;right:100px;background:#000;color:#fff;padding:10px;'>" + showResult + "</div>");
+  $("body").append("<div id='translatebao' style='position:fixed;z-index: 1000000; top:100px;right:100px;background:#000;color:#fff;padding:10px;'>" + showResult + "</div>");
 });

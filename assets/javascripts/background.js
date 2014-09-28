@@ -17,6 +17,6 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 chrome.contextMenus.create({
   title: "TranslateBao",
-  contexts: ["selection"],
+  contexts: ["selection", "link"],
   id: "translate-selection"
 });

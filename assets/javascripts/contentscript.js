@@ -1,3 +1,25 @@
+function renderTemplate(result) {
+  if($("#translatebao").length == 0) {
+    $("body").append("<div id='translatebao'></div>");
+  }
+  $("#translatebao").html(result);
+}
+
+function show(callback) {
+  $("#translatebao").show();
+  callback();
+}
+
+function hide() {
+  $("#translatebao").fadeOut("fast");
+}
+
+function autoHide(timer) {
+  setTimeout(function() {
+    hide();
+  }, timer || 3000);
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { 
   var showResult = "";
   var transResult = request.message["trans_result"];
@@ -7,8 +29,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   for(var i = 0; i < transResult.length; i++) {
     showResult += "<li>" + transResult[i].dst + "</li>";
   }
-  if($("#translatebao").length > 0) {
-    $("#translatebao").remove();
-  }
-  $("body").append("<div id='translatebao' style='position:fixed;z-index: 1000000; top:100px;right:100px;background:#000;color:#fff;padding:10px;'>" + showResult + "</div>");
+  renderTemplate(showResult);
+  show(autoHide);
 });

@@ -1,0 +1,22 @@
+body {
+  min-width: 400px;
+  margin: 0;
+  padding: 0;
+  background: url(/assets/images/popup-background.png);
+  -webkit-user-select: none;
+}
+#popup_container {
+  padding: 10px;
+}
+#popup_container #from, #popup_container #to {
+  width: 170px;
+  height: 180px;
+  border: 1px solid #ccc;
+  resize: none;
+  border-radius: 4px;
+  outline: none;
+}
+#popup_container #transform {
+  display: inline-block;
+  width: 15px;
+}

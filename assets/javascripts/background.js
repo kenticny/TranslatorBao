@@ -1,6 +1,6 @@
 // on click event
 function onClickHandler(info, tab) {
-  if(info.menuItemId == "translate-selection") {
+  if(info.menuItemId == "translate") {
     var text = info.selectionText;
     $.get("http://openapi.baidu.com/public/2.0/bmt/translate?client_id=z5OMaOk2GlfGj29UFP9siA6Y&q=" + text + "&from=auto&to=auto", 
       function(result) {
@@ -18,5 +18,5 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 chrome.contextMenus.create({
   title: "TranslateBao",
   contexts: ["selection", "link"],
-  id: "translate-selection"
+  id: "translate"
 });

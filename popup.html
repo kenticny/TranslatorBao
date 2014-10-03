@@ -2,13 +2,22 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="assets/stylesheets/popup.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/foundation-icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/popup.css" />
   </head>
   <body>
     <div id="popup_container">
       <textarea id="from" placeholder="请输入要查询的内容"></textarea>
-      <span id="transform">↔</span>
-      <textarea id="to" readonly="readonly">111111</textarea>
+      <span id="transform"><i class="fi-arrow-right"></i></span>
+      <textarea id="to" readonly="readonly"></textarea>
     </div>
+    <div id="footer_bar">
+      <select>
+        <option>英译汉</option>
+      </select>
+      <span><a href="http://translate.lyitlove.com">translate.lyitlove.com</a></span>
+    </div>
+    <script src="/assets/javascripts/lib/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/popup.js"></script>
   </body>
 </html>

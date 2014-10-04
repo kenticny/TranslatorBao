@@ -14,7 +14,6 @@ $(function() {
   }
 
   $("#transform>i").click(function() {
-    console.log(111)
     var text = $("#from").val();
     BG.translate(text, function(result) {
       $("#to").val(parseResult(result))

@@ -6,3 +6,13 @@ TranslateBao
 ---
 
 + 实现了基本的英译汉功能，划词右键选择TranslateBao进行翻译
+
+
+
+---
+
+### Release Version
+
+##### 0.0.1 
+
++ 实现页面划词翻译，和面板英译汉

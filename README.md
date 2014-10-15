@@ -5,13 +5,21 @@ TranslateBao
 
 ---
 
-+ 实现了基本的英译汉功能，划词右键选择TranslateBao进行翻译
++ 实现了基本的英译汉、汉译英功能，划词右键选择TranslateBao进行翻译
 
 
 
 ---
 
 ### Release Version
+
+
+### Developing Version
+
+##### 0.0.2
+
++ 增加了popup汉译英支持
++ 鼠标停留在翻译提示上，提示框不消失，移开后开始消失
 
 ##### 0.0.1 
 

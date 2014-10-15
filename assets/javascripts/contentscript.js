@@ -1,3 +1,5 @@
+var translatebaoTimer = null;
+
 function renderTemplate(result) {
   if($("#translatebao").length == 0) {
     $("body").append("<div id='translatebao'></div>");
@@ -15,9 +17,13 @@ function hide() {
 }
 
 function autoHide(timer) {
-  setTimeout(function() {
+  translatebaoTimer = setTimeout(function() {
     hide();
   }, timer || 3000);
+}
+
+function stopAutoHide() {
+  clearTimeout(translatebaoTimer);
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { 
@@ -30,5 +36,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     showResult += "<li>" + transResult[i].dst + "</li>";
   }
   renderTemplate(showResult);
-  show(autoHide);
+  show(function() {
+    autoHide();
+    $("#translatebao").hover(function() {
+      stopAutoHide();
+    }, function() {
+      autoHide();
+    });
+  });
 });

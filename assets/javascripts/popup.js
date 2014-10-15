@@ -1,6 +1,10 @@
 $(function() {
   var BG = chrome.extension.getBackgroundPage();
 
+  function init() {
+    $("#from").focus();
+  }
+
   function parseResult(message) {
     var transResult = message["trans_result"];
     var showResult = "";
@@ -13,9 +17,10 @@ $(function() {
     return showResult;
   }
 
+  init();
   $("#transform>i").click(function() {
     var text = $("#from").val();
-    BG.translate(text, function(result) {
+    BG.translate.quickTranslate(text, function(result) {
       $("#to").val(parseResult(result))
     });
   });

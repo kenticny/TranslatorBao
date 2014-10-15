@@ -1,15 +1,8 @@
-function translate(text, callback) {
-  $.get("http://openapi.baidu.com/public/2.0/bmt/translate?client_id=z5OMaOk2GlfGj29UFP9siA6Y&q=" + text + "&from=auto&to=auto", 
-    function(result) {
-      callback(result);
-    });
-}
-
 // on click event
 function onClickHandler(info, tab) {
   if(info.menuItemId == "translate") {
     var text = info.selectionText;
-    translate(text, function(result) {
+    translate.quickTranslate(text, function(result) {
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {  
         chrome.tabs.sendMessage(tabs[0].id, {message: result}, function(response) {    
           console.log(response);

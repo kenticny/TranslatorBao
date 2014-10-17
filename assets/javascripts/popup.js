@@ -17,12 +17,22 @@ $(function() {
     return showResult;
   }
 
-  init();
-  $("#transform>i").click(function() {
+  function doTranslate() {
     var text = $("#from").val();
     BG.translate.quickTranslate(text, function(result) {
       $("#to").val(parseResult(result))
     });
+  }
+
+  init();
+  
+  $("#transform>i").click(function() {
+    doTranslate();
   });
+  $("#from").keypress(function(e) {
+    if(e.keyCode === 13) {
+      doTranslate();
+    }
+  })
 });
 

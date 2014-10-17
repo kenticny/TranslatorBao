@@ -28,5 +28,6 @@
       "/assets/javascripts/lib/jquery-1.11.1.min.js", 
       "/assets/javascripts/contentscript.js"
     ]
-  }]
+  }],
+  "options_page": "option.html"
 }

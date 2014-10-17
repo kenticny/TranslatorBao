@@ -1,0 +1,13 @@
+#dev {
+  margin: 20px auto;
+  width: 80%;
+  height: 280px;
+  line-height: 280px;
+  background: #999;
+  color: #eee;
+  font-size: 80px;
+  letter-spacing: 20px;
+  font-family: "Microsoft YaHei";
+  font-weight: bold;
+  text-align: center;
+}

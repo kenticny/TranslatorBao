@@ -1,13 +1,84 @@
-#dev {
-  margin: 20px auto;
+body {
   width: 80%;
-  height: 280px;
-  line-height: 280px;
-  background: #999;
-  color: #eee;
-  font-size: 80px;
-  letter-spacing: 20px;
-  font-family: "Microsoft YaHei";
-  font-weight: bold;
+  margin: auto;
+  font-family: "Arial Black", "微软雅黑";
+}
+header {
+  margin: 10px auto;
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-indent: 20px;
+  border-radius: 10px;  
+  background: -webkit-linear-gradient(top, rgba(36, 139, 189, 1), rgba(29, 107, 146, 1));
+  color: #fff;
+  -webkit-user-select: none;
+  font-size: 2rem;
+}
+nav {
+  width: 20%;
+  height: 500px;
+  border: 1px solid rgba(29, 107, 146, 1);
+  border-radius: 10px;
+  -webkit-user-select: none;
+  float: left;
+}
+nav .nav_btn {
+  width: 90%;
+  height: 30px;
+  color: rgba(29, 107, 146, 1);
+  line-height: 30px;
   text-align: center;
+  text-decoration: none;
+  margin: 10px auto;
+  border: 1px solid rgba(29, 107, 146, 1);
+  -webkit-transition: background .5s;
+  border-radius: 8px;
+  display: block;
+  cursor: pointer;
+}
+nav .nav_btn:hover {
+  background: rgba(29, 107, 146, 1);
+  color: #fff;
+}
+nav .active {
+  background: rgba(29, 107, 146, 1);
+  color: #fff;
+}
+article {
+  width: 78%;
+  height: 500px;
+  border: 1px solid rgba(29, 107, 146, 1);
+  border-radius: 10px;
+  float: right;
+}
+article .main {
+  padding: 10px;
+  font-size: 14px;
+  font-family: "Arial", "微软雅黑";
+}
+article .context {
+  display: none;
+}
+article .active {
+  display: block;
+}
+
+#aboutContext #version, #aboutContext #author{
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+#aboutContext #github {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+#aboutContext #github a {
+  text-decoration: none;
+  color: rgba(150, 150, 150, 1);
+  -webkit-transition: color .5s;
+}
+#aboutContext #github a:hover {
+  color: rgba(29, 107, 146, 1);
 }

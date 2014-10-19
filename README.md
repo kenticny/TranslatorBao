@@ -3,18 +3,24 @@ TranslateBao
 
 + 仅仅是一个翻译插件，正在开发中，敬请期待
 
----
+======
 
 + 实现了基本的英译汉、汉译英功能，划词右键选择TranslateBao进行翻译
 
 
 
----
+======
 
 ### Release Version
 
 
 ### Developing Version
+
+##### 0.0.3
+
+- 增加右键翻译loading状态
+- 添加配置页面
+  - 配置对popup回车翻译
 
 ##### 0.0.2
 

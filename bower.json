@@ -1,0 +1,24 @@
+{
+  "name": "TranslateBao",
+  "version": "0.0.3",
+  "homepage": "https://github.com/kenticny/TranslateBao",
+  "authors": [
+    "kenticny <kenticny@gmail.com>"
+  ],
+  "description": "Just a tranlate assistant tool, Chinese and English",
+  "keywords": [
+    "translate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "seajs": "~2.3.0",
+    "jquery": "~2.1.1"
+  }
+}

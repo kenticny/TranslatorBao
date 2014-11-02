@@ -25,7 +25,7 @@
       "/assets/stylesheets/cs.css"
     ],
     "js": [
-      "/bower_components/jquery/dist/jquery.min.js", 
+      "/assets/javascripts/lib/jquery.min.js", 
       "/assets/javascripts/contentscript.js"
     ]
   }],

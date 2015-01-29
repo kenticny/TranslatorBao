@@ -18,10 +18,26 @@ $(function() {
   }
 
   function doTranslate() {
+    var type = $("#selectbar").val();
     var text = $("#from").val();
-    BG.translate.quickTranslate(text, function(result) {
-      $("#to").val(parseResult(result))
-    });
+
+    function resultHandle(result) {
+      $("#to").val(parseResult(result));
+    }
+
+    switch(type) {
+      case "0": 
+        BG.translate.quickTranslate(text, resultHandle);
+        break;
+      case "1": 
+        BG.translate.englishToChinese(text, resultHandle);
+        break;
+      case "2": 
+        BG.translate.chineseToEnglish(text, resultHandle);
+        break;
+      default:
+        BG.translate.quickTranslate(text, resultHandle);
+    }
   }
 
   init();

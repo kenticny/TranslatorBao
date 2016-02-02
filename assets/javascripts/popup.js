@@ -6,6 +6,12 @@ $(function() {
   }
 
   function parseResult(message) {
+    if(message.error_code && message.error_code == 52003) {
+      chrome.storage.sync.clear(function(){});
+      return 'Licence验证失败';
+    }else if(message.error_msg) {
+      return message.error_msg;
+    }
     var transResult = message["trans_result"];
     var showResult = "";
     if(transResult.length == 0) {

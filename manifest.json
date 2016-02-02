@@ -5,7 +5,8 @@
   "author": "kenticny",
   "permissions": [
     "contextMenus",
-    "http://openapi.baidu.com/*"
+    "storage",
+    "http://api.fanyi.baidu.com/*"
   ],
   "icons": {
     "128": "/assets/images/icon-128.png"

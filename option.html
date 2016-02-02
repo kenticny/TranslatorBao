@@ -15,14 +15,17 @@
     </nav>
     <article>
     	<div class="main">
-        <div> Translate > <span id="currentTag"></span><hr /></div>
-        <div class="context active" id="generalContext">
-          <input type="checkbox" />查询面板是否启用回车翻译
+        <div> Translate > <span id="current-tag"></span><hr /></div>
+        <div class="context active" id="general-context">
         </div>
-        <div class="context" id="translateContext">Translate</div>
-        <div class="context" id="personalContext">Personal</div>
-        <div class="context" id="advancedContext">Advanced</div>
-        <div class="context" id="aboutContext">
+        <div class="context" id="translate-context">
+          <textarea class="licence"></textarea>
+          <button id="validate-licence">验证</button>
+          <span class="tip-message"></span>
+        </div>
+        <div class="context" id="personal-context">Personal</div>
+        <div class="context" id="advanced-context">Advanced</div>
+        <div class="context" id="about-context">
           <h2>Translate Bao</h2>
           <div><span id="version">版本号: 0.0.3</span><a id="author">from Kenticny</a></div>
           <div id="github"><a href="https://github.com/kenticny/TranslateBao">Fork me on GitHub</a></div>

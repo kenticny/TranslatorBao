@@ -64,21 +64,26 @@ article .active {
   display: block;
 }
 
-#aboutContext #version, #aboutContext #author{
+#translate-context .licence {
+  width: 300px;
+  height: 150px;
+}
+
+#about-context #version, #about-context #author{
   font-size: 12px;
   font-weight: bold;
   margin-right: 20px;
 }
-#aboutContext #github {
+#about-context #github {
   font-size: 20px;
   font-weight: bold;
   margin-top: 20px;
 }
-#aboutContext #github a {
+#about-context #github a {
   text-decoration: none;
   color: rgba(150, 150, 150, 1);
   -webkit-transition: color .5s;
 }
-#aboutContext #github a:hover {
+#about-context #github a:hover {
   color: rgba(29, 107, 146, 1);
 }

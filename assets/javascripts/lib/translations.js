@@ -11,6 +11,12 @@ var translateEngine = function(engine, text, callback) {
     }
 
     var toLang = 'zh';
+
+    var testRegex = /[A-Za-z]/g;
+    if(!testRegex.test(text)) {
+      toLang = 'en';
+    }
+
     var appId = licence.a;
     var secret = licence.s;
     var encryptKey = '' || 'TranslateBaoExtensionsForChrome';

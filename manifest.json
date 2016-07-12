@@ -30,5 +30,15 @@
       "/assets/javascripts/contentscript.js"
     ]
   }],
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+K",
+        "mac": "Command+K",
+        "chromeos": "Ctrl+K",
+        "linux": "Ctrl+K"
+      }
+    }
+  },
   "options_page": "option.html"
 }

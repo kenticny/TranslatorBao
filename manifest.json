@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TranslateBao",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "kenticny",
   "permissions": [
     "contextMenus",
@@ -33,10 +33,10 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "windows": "Ctrl+K",
-        "mac": "Command+K",
-        "chromeos": "Ctrl+K",
-        "linux": "Ctrl+K"
+        "windows": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K",
+        "chromeos": "Ctrl+Shift+K",
+        "linux": "Ctrl+Shift+K"
       }
     }
   },

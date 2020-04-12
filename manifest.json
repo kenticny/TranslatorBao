@@ -11,7 +11,8 @@
   "icons": {
     "128": "/assets/images/icon-128.png"
   },
-  "description": "It's just a Translate if you want",
+  "content_security_policy": "object-src 'self';script-src 'self' 'sha256-gMko9E84OR4/ev++pwenrK2KeTpCP5jlHvI45YTBPyo='",
+  "description": "It's just a Translator if you want",
   "browser_action": {
     "default_icon": "/assets/images/icon-128.png",
     "default_popup": "popup.html"
@@ -40,5 +41,5 @@
       }
     }
   },
-  "options_page": "option.html"
+  "options_page": "/options/index.html"
 }

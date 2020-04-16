@@ -17,12 +17,12 @@ $(function() {
       case "0": 
         BG.proxyTranslator.translate(text).then(res => {
           if (res.result == 'error') {
-            if (res.code == 'InvalidLicense') {
-              return renderResult('ERROR:授权激活信息无效')
+            switch (res.code) {
+              case 'InvalidLicense': renderResult('ERROR:授权激活信息无效'); break;
+              case 'ResponseError': renderResult('ERROR:请求异常，请检查网络'); break;
+              default: renderResult('ERROR:翻译异常');break;
             }
-            if (res.code == 'ResponseError') {
-              return renderResult('ERROR:请求异常，请检查网络')
-            }
+            return
           }
           if (res.result == 'ok') {
             const transResult = res.data["trans_result"];

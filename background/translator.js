@@ -92,9 +92,9 @@ class ProxyTranslator {
   }
   /**
    * Translate
-   * @param {String} q 
+   * @param {String} q
    */
-  translate(q) {
+  translate(q, from, to) {
     return this.loadCID().then(cid => {
       if (!cid) return {result: 'error', code: 'InitialError'}
       return syncStorage.get('license').then(data => {
@@ -107,11 +107,21 @@ class ProxyTranslator {
         const salt = nonce(10)
         const sign = md5(appID+q+salt+secret)
 
+
+        let toLang = 'zh';
+
+        const testRegex = /[A-Za-z]/g;
+        if(!testRegex.test(q)) {
+          toLang = 'en';
+        }
+
         const params = {
           cid: clientID,
           sign: sign,
           q: q,
           salt: salt,
+          from: 'auto',
+          to: toLang,
         }
 
         return axios({

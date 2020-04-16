@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "TranslateBao",
+  "name": "TranslatorBao",
   "version": "0.0.4",
   "author": "kenticny",
   "permissions": [
@@ -9,26 +9,26 @@
     "http://api.fanyi.baidu.com/*"
   ],
   "icons": {
-    "128": "/assets/images/icon-128.png"
+    "128": "/popup/icon-128.png"
   },
   "content_security_policy": "object-src 'self';script-src 'self' 'sha256-gMko9E84OR4/ev++pwenrK2KeTpCP5jlHvI45YTBPyo='",
   "description": "It's just a Translator if you want",
   "browser_action": {
-    "default_icon": "/assets/images/icon-128.png",
-    "default_popup": "popup.html"
+    "default_icon": "/popup/icon-128.png",
+    "default_popup": "/popup/index.html"
   },
   "background": {
-    "page": "background.html",
+    "page": "/background/index.html",
     "persistent": true
   },
   "content_scripts": [{
     "matches": ["*://*/*"],
     "css": [
-      "/assets/stylesheets/cs.css"
+      "/contentscripts/cs.css"
     ],
     "js": [
-      "/assets/javascripts/lib/jquery.min.js", 
-      "/assets/javascripts/contentscript.js"
+      "/popup/libs/jquery.min.js", 
+      "/contentscripts/contentscript.js"
     ]
   }],
   "commands": {

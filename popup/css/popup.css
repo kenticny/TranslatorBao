@@ -3,7 +3,7 @@ body {
   max-width: 400px;
   margin: 0;
   padding: 0;
-  background: url(/assets/images/popup-background.png);
+  background: #F2F1F0;
   -webkit-user-select: none;
 }
 #popup_container {

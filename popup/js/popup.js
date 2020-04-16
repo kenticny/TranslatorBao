@@ -5,30 +5,9 @@ $(function() {
     $("#from").focus();
   }
 
-  function parseResult(message) {
-    if(message.error_code && message.error_code == 52003) {
-      chrome.storage.sync.clear(function(){});
-      return 'Licence验证失败';
-    }else if(message.error_msg) {
-      return message.error_msg;
-    }
-    var transResult = message["trans_result"];
-    var showResult = "";
-    if(transResult.length == 0) {
-      showResult = "没有找到合适的解释";
-    }
-    for(var i = 0; i < transResult.length; i++) {
-      showResult += transResult[i].dst + "\n";
-    }
-    return showResult;
-  }
-
   function doTranslate() {
     var type = $("#selectbar").val();
     var text = $("#from").val();
-    function resultHandle(result) {
-      $("#to").val(parseResult(result));
-    }
 
     function renderResult(result) {
       $("#to").val(result)
@@ -40,6 +19,9 @@ $(function() {
           if (res.result == 'error') {
             if (res.code == 'InvalidLicense') {
               return renderResult('ERROR:授权激活信息无效')
+            }
+            if (res.code == 'ResponseError') {
+              return renderResult('ERROR:请求异常，请检查网络')
             }
           }
           if (res.result == 'ok') {

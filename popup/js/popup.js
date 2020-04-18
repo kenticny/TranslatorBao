@@ -13,34 +13,42 @@ $(function() {
       $("#to").val(result)
     }
 
-    switch(type) {
-      case "0": 
-        BG.proxyTranslator.translate(text).then(res => {
-          if (res.result == 'error') {
-            switch (res.code) {
-              case 'InvalidLicense': renderResult('ERROR:授权激活信息无效'); break;
-              case 'ResponseError': renderResult('ERROR:请求异常，请检查网络'); break;
-              default: renderResult('ERROR:翻译异常');break;
+    BG.settings.get('engine').then(res => {
+      var currentEngine = 'proxy'
+      if (res && res.result === 'ok') {
+        currentEngine = res.data
+      }
+      return currentEngine == 'proxy' ? BG.proxyTranslator : BG.baiduTranslator
+    }).then(engine => {
+      switch(type) {
+        case "0": 
+          engine.translate(text).then(res => {
+            if (res.result == 'error') {
+              switch (res.code) {
+                case 'InvalidLicense': renderResult('ERROR:授权激活信息无效'); break;
+                case 'ResponseError': renderResult('ERROR:请求异常，请检查网络'); break;
+                default: renderResult('ERROR:翻译异常');break;
+              }
+              return
             }
-            return
-          }
-          if (res.result == 'ok') {
-            const transResult = res.data["trans_result"];
-            var showResult = "";
-            if(transResult.length == 0) {
-              showResult = "没有找到合适的解释";
+            if (res.result == 'ok') {
+              const transResult = res.data["trans_result"];
+              var showResult = "";
+              if(transResult.length == 0) {
+                showResult = "没有找到合适的解释";
+              }
+              for(var i = 0; i < transResult.length; i++) {
+                showResult += transResult[i].dst + "\n";
+              }
+              return renderResult(showResult)
             }
-            for(var i = 0; i < transResult.length; i++) {
-              showResult += transResult[i].dst + "\n";
-            }
-            return renderResult(showResult)
-          }
-          return renderResult('没有找到合适的解释')
-        })
-        break;
-      default:
-        renderResult('ERROR:暂不支持该选项')
-    }
+            return renderResult('没有找到合适的解释')
+          })
+          break;
+        default:
+          renderResult('ERROR:暂不支持该选项')
+      }
+    })
   }
 
   init();

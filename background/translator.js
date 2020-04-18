@@ -74,9 +74,9 @@ class ProxyTranslator {
         data: params,
       }).then(res => {
         if (res.data.result == 'ok') {
-          const license = res.data.data
-          license.secret = secret
-          return syncStorage.set({license}).then(() => {
+          const proxyLicense = res.data.data
+          proxyLicense.secret = secret
+          return syncStorage.set({proxyLicense}).then(() => {
             // activate success
             return {result: 'ok'}
           })
@@ -97,7 +97,7 @@ class ProxyTranslator {
   translate(q, from, to) {
     return this.loadCID().then(cid => {
       if (!cid) return {result: 'error', code: 'InitialError'}
-      return syncStorage.get('license').then(data => {
+      return syncStorage.get('proxyLicense').then(data => {
         if (!data) {
           return {result: 'error', code: 'InvalidLicense'}
         }
@@ -108,20 +108,18 @@ class ProxyTranslator {
         const sign = md5(appID+q+salt+secret)
 
 
-        let toLang = 'zh';
-
-        const testRegex = /[A-Za-z]/g;
-        if(!testRegex.test(q)) {
-          toLang = 'en';
-        }
+        const pre = preTranslate(q, from, to)
+        q = pre.q
+        from = pre.from
+        to = pre.to
 
         const params = {
           cid: clientID,
           sign: sign,
           q: q,
           salt: salt,
-          from: 'auto',
-          to: toLang,
+          from: from,
+          to: to,
         }
 
         return axios({
@@ -143,6 +141,90 @@ class ProxyTranslator {
   }
 }
 
+class BaiduTranslator {
+  constructor() {
+    this.service = 'https://fanyi-api.baidu.com'
+    this.api = {
+      commonTrans: '/api/trans/vip/translate'
+    }
+
+    this.loadCID = this.loadCID.bind(this)
+  }
+  loadCID() {
+    if (this.cid) {
+      return Promise.resolve(this.cid)
+    }
+    return syncStorage.get('cid').then(cid => {
+      this.cid = cid
+      return cid
+    })
+  }
+  existsLicense() {
+    return syncStorage.get('baiduLicense').then(data => {
+      if (data.appid && data.secret) {
+        return true
+      }
+      return false
+    })
+  }
+  activate(appid, secret) {
+    const baiduLicense = {appid, secret}
+    return syncStorage.set({baiduLicense}).then(() => {
+      return this.translate('apple')
+    }).then(res => {
+      if (res.result == 'ok') {
+        return {result: 'ok'}
+      }
+      return {result: 'error', code: 'InvalidAccount', msg: '激活失败'}
+    })
+  }
+  translate(q, from, to) {
+    return syncStorage.get('baiduLicense').then(data => {
+      const appid = data.appid
+      const secret = data.secret
+
+      const pre = preTranslate(q, from, to)
+      q = pre.q
+      from = pre.from
+      to = pre.to
+
+      const salt = nonce(8)
+
+      const params = {
+        q, from, to, appid, salt,
+        sign: md5(appid + q + salt + secret)
+      }
+      const qs = buildQuery(params)
+      return axios({
+        method: 'get',
+        url: this.service + this.api.commonTrans + '?' + qs,
+      }).then(res => {
+        if (!res.data.error_code) {
+          return {result: 'ok', data: res.data}
+        }
+        return {result: 'error', code: 'ResponseError', msg: res.data.error_msg}
+      }).catch(err => {
+        return {result: 'error', code: 'RequestError', msg: '请求失败'}
+      })
+    })
+  }
+}
+
+function preTranslate(q, from, to) {
+  if (!q) return {err: 'missing query content'}
+  if (q && from && to) return {q, from, to}
+  if (!from) from = 'auto'
+  if (!to) {
+    let toLang = 'zh';
+    const testRegex = /[A-Za-z]/g;
+    if(!testRegex.test(q)) {
+      toLang = 'en';
+    }
+    to = toLang
+  }
+  return {q, from, to}
+}
+
 function nonce(len) {
   const base = 'abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ1234567890';
   let str = '';
@@ -162,3 +244,4 @@ function buildQuery(params) {
 }
 
 var proxyTranslator = new ProxyTranslator()
+var baiduTranslator = new BaiduTranslator()

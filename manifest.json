@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TranslatorBao",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "author": "kenticny",
   "permissions": [
     "contextMenus",

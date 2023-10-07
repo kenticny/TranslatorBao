@@ -1,3 +1,5 @@
+import { md5 } from './libs/md5.m.js'
+import { syncStorage } from './storage.js'
 class ProxyTranslator {
   constructor() {
     this.service = 'http://localhost:8888'
@@ -36,7 +38,7 @@ class ProxyTranslator {
    */
   licenseInfo(license) {
     const api = this.service + this.api.licenseInfo + '?n=' + license
-    return axios({
+    return fetch({
       method: 'get',
       url: api,
     }).then(res => {
@@ -68,7 +70,7 @@ class ProxyTranslator {
         s: nonceStr,
         si: sign,
       }
-      return axios({
+      return fetch({
         method: 'post',
         url: api,
         data: params,
@@ -107,7 +109,6 @@ class ProxyTranslator {
         const salt = nonce(10)
         const sign = md5(appID+q+salt+secret)
 
-
         const pre = preTranslate(q, from, to)
         q = pre.q
         from = pre.from
@@ -122,7 +123,7 @@ class ProxyTranslator {
           to: to,
         }
 
-        return axios({
+        return fetch({
           method: 'get',
           url: this.service + this.api.commonTrans + '?' + buildQuery(params)
         }).then(res => {
@@ -195,7 +196,7 @@ class BaiduTranslator {
         sign: md5(appid + q + salt + secret)
       }
       const qs = buildQuery(params)
-      return axios({
+      return fetch({
         method: 'get',
         url: this.service + this.api.commonTrans + '?' + qs,
       }).then(res => {
@@ -245,3 +246,8 @@ function buildQuery(params) {
 
 var proxyTranslator = new ProxyTranslator()
 var baiduTranslator = new BaiduTranslator()
+
+export {
+  proxyTranslator,
+  baiduTranslator,
+}

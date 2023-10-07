@@ -1,3 +1,5 @@
+import { syncStorage } from './storage.js'
+
 class Settings {
   set(k, v) {
     return syncStorage.get('settings').then(res => {
@@ -67,4 +69,8 @@ function mergeDeep(target, ...sources) {
   }
 
   return mergeDeep(target, ...sources);
+}
+
+export {
+  settings
 }

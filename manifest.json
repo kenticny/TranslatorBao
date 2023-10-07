@@ -1,25 +1,29 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "TranslatorBao",
   "version": "1.0.0",
   "author": "kenticny",
   "permissions": [
     "contextMenus",
-    "storage",
+    "storage"
+  ],
+  "host_permissions": [
     "http://api.fanyi.baidu.com/*"
   ],
   "icons": {
     "128": "/popup/icon-128.png"
   },
-  "content_security_policy": "object-src 'self';script-src 'self' 'sha256-gMko9E84OR4/ev++pwenrK2KeTpCP5jlHvI45YTBPyo='",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "description": "It's just a Translator if you want",
-  "browser_action": {
+  "action": {
     "default_icon": "/popup/icon-128.png",
     "default_popup": "/popup/index.html"
   },
   "background": {
-    "page": "/background/index.html",
-    "persistent": true
+    "service_worker": "/background/service_worker.js",
+    "type": "module"
   },
   "content_scripts": [{
     "matches": ["*://*/*"],
@@ -32,7 +36,7 @@
     ]
   }],
   "commands": {
-    "_execute_browser_action": {
+    "_execute_action": {
       "suggested_key": {
         "windows": "Ctrl+Shift+K",
         "mac": "Command+Shift+K",

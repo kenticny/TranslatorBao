@@ -1,6 +1,7 @@
-$(function() {
-  var BG = chrome.extension.getBackgroundPage();
+import { settings } from '../../background/settings.js'
+import { proxyTranslator, baiduTranslator } from '../../background/translator.js'
 
+$(function() {
   function init() {
     $("#from").focus();
   }
@@ -12,21 +13,22 @@ $(function() {
     function renderResult(result) {
       $("#to").val(result)
     }
-
-    BG.settings.get('engine').then(res => {
+    settings.get('engine').then(res => {
       var currentEngine = 'proxy'
       if (res && res.result === 'ok') {
         currentEngine = res.data
       }
-      return currentEngine == 'proxy' ? BG.proxyTranslator : BG.baiduTranslator
+      return currentEngine == 'proxy' ? proxyTranslator : baiduTranslator
     }).then(engine => {
       switch(type) {
         case "0": 
           engine.translate(text).then(res => {
+            console.log(res)
             if (res.result == 'error') {
               switch (res.code) {
                 case 'InvalidLicense': renderResult('ERROR:授权激活信息无效'); break;
                 case 'ResponseError': renderResult('ERROR:请求异常，请检查网络'); break;
+                case 'RequestError': renderResult('ERROR:请求异常');break;
                 default: renderResult('ERROR:翻译异常');break;
               }
               return

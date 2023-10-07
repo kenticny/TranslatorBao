@@ -1,0 +1,3 @@
+{
+    "content_security_policy": "object-src 'self';script-src 'self' 'sha256-gMko9E84OR4/ev++pwenrK2KeTpCP5jlHvI45YTBPyo='"
+}

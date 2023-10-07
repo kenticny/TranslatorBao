@@ -20,3 +20,8 @@ class Storage {
 
 var syncStorage = new Storage('sync')
 var localStorage = new Storage('local')
+
+export {
+  syncStorage,
+  localStorage
+}

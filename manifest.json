@@ -14,7 +14,13 @@
     "128": "/popup/icon-128.png"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'sha256-gMko9E84OR4/ev++pwenrK2KeTpCP5jlHvI45YTBPyo='"
+  },
+  "sandbox": {
+    "pages": [
+      "/options/index.html"
+    ]
   },
   "description": "It's just a Translator if you want",
   "action": {

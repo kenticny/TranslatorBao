@@ -38,10 +38,7 @@ class ProxyTranslator {
    */
   licenseInfo(license) {
     const api = this.service + this.api.licenseInfo + '?n=' + license
-    return fetch({
-      method: 'get',
-      url: api,
-    }).then(res => {
+    return fetch(api).then(response => response.json()).then(res => {
       if (res.data.result == 'ok') {
         res = res.data
         return {result: 'ok', data: res.data}
@@ -70,11 +67,13 @@ class ProxyTranslator {
         s: nonceStr,
         si: sign,
       }
-      return fetch({
+      return fetch(api, {
         method: 'post',
-        url: api,
-        data: params,
-      }).then(res => {
+        body: JSON.stringify(params),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(response => response.json()).then(res => {
         if (res.data.result == 'ok') {
           const proxyLicense = res.data.data
           proxyLicense.secret = secret
@@ -123,10 +122,7 @@ class ProxyTranslator {
           to: to,
         }
 
-        return fetch({
-          method: 'get',
-          url: this.service + this.api.commonTrans + '?' + buildQuery(params)
-        }).then(res => {
+        return fetch(this.service + this.api.commonTrans + '?' + buildQuery(params)).then(response => response.json()).then(res => {
           if (res.data.result == 'ok') {
             return res.data
           } else {
@@ -185,7 +181,7 @@ class BaiduTranslator {
       const secret = data.secret
 
       const pre = preTranslate(q, from, to)
-      q = pre.q
+      q = pre.q.trim()
       from = pre.from
       to = pre.to
 
@@ -196,14 +192,11 @@ class BaiduTranslator {
         sign: md5(appid + q + salt + secret)
       }
       const qs = buildQuery(params)
-      return fetch({
-        method: 'get',
-        url: this.service + this.api.commonTrans + '?' + qs,
-      }).then(res => {
-        if (!res.data.error_code) {
-          return {result: 'ok', data: res.data}
+      return fetch(this.service + this.api.commonTrans + '?' + qs,).then(response => response.json()).then(res => {
+        if (!res.error_code) {
+          return {result: 'ok', data: res}
         }
-        return {result: 'error', code: 'ResponseError', msg: res.data.error_msg}
+        return {result: 'error', code: 'ResponseError', msg: res.error_msg}
       }).catch(err => {
         return {result: 'error', code: 'RequestError', msg: '请求失败'}
       })

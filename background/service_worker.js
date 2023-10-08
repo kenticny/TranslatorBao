@@ -9,6 +9,10 @@ import { syncStorage } from './storage.js'
       })
     }
   })
+
+  chrome.commands.onCommand.addListener((command) => {
+    console.log(`Command: ${command}`);
+  });
 })()
 
 function noop() {

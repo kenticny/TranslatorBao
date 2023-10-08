@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "TranslatorBao V2",
+  "description": "It's just a Translator if you want",
+  "version": "2.0.0",
+  "author": "kenticny",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "/background/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_icon": "/popup/icon-128.png",
+    "default_popup": "/popup/index.html"
+  }
+}

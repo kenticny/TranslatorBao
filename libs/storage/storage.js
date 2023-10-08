@@ -8,6 +8,9 @@ class Storage {
   async set(k, data) {
     return await chrome.storage[this.type].set({ [k]: data })
   }
+  async del(k) {
+    return await chrome.storage[this.type].remove(k)
+  }
 }
 
 export const syncStorage = new Storage('sync');

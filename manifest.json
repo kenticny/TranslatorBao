@@ -4,8 +4,15 @@
   "description": "It's just a Translator if you want",
   "version": "2.0.0",
   "author": "kenticny",
+  "icons": {
+    "128": "/popup/icon-128.png"
+  },
   "permissions": [
-    "storage"
+    "storage",
+    "management"
+  ],
+  "host_permissions": [
+    "https://fanyi-api.baidu.com/*"
   ],
   "background": {
     "service_worker": "/background/background.js",

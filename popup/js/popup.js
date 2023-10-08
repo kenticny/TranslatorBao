@@ -1,5 +1,5 @@
-import { localStorage as storage } from '../../libs/storage.js';
-import { proxyTranslator, baiduTranslator } from '../../background/translator.js'
+import { localStorage as storage } from '../../libs/storage/storage.js';
+import { baiduTranslator } from '../../translators/baidu.js';
 
 $(function() {
   function init() {
@@ -23,7 +23,6 @@ $(function() {
       switch(type) {
         case "0": 
           engine.translate(text).then(res => {
-            console.log(res)
             if (res.result == 'error') {
               switch (res.code) {
                 case 'InvalidLicense': renderResult('ERROR:授权激活信息无效'); break;

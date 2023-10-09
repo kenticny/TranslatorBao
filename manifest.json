@@ -14,6 +14,15 @@
   "host_permissions": [
     "https://fanyi-api.baidu.com/*"
   ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'sha256-gMko9E84OR4/ev++pwenrK2KeTpCP5jlHvI45YTBPyo='"
+  },
+  "sandbox": {
+    "pages": [
+      "/options/index.html"
+    ]
+  },
   "background": {
     "service_worker": "/background/background.js",
     "type": "module"
@@ -21,5 +30,16 @@
   "action": {
     "default_icon": "/popup/icon-128.png",
     "default_popup": "/popup/index.html"
+  },
+  "options_page": "/options/index.html",
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K",
+        "chromeos": "Ctrl+Shift+K",
+        "linux": "Ctrl+Shift+K"
+      }
+    }
   }
 }

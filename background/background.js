@@ -1,4 +1,5 @@
 import { localStorage as storage } from "../libs/storage/storage.js";
+import { settingsTest as settings } from "../libs/settings/settings.js";
 import { md5 } from "../libs/md5/md5.js";
 import { detectMainLanguage } from "../libs/language_detect/language_detect.js";
 import { baiduTranslator } from "../translators/baidu.js";
@@ -9,6 +10,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 })
 
 chrome.management.get(chrome.runtime.id, async (extensionInfo) => {
+
   // UNIT TEST
   if (extensionInfo.installType === 'development') {
     console.log("================== storage test ======================")
@@ -52,13 +54,40 @@ chrome.management.get(chrome.runtime.id, async (extensionInfo) => {
     console.log("case 4: detectMainLanguage('안녕하세요 세계') = ", lang4 == "ko" ? "pass" : "fail")
     console.log("case 5: detectMainLanguage('你好世界 hello world') = ", lang5 == "zh" ? "pass" : "fail")
     console.log("\n")
+
+    console.log("=================== settings test ======================")
+    await settings.reset()
+
+    const engines = await settings.getAvailableEngines()
+    console.log("case 1: get empty engine list: ", Object.keys(engines).length == 0 ? "pass": "fail")
+
+    await settings.setEngineBaidu("testbaiduappid", "testbaidusecret")
+    const baiduEngine = await settings.getEngineBaidu()
+    console.log("case 2: set/get baidu engine: ", 
+      (baiduEngine.appid == "testbaiduappid" && baiduEngine.secret == "testbaidusecret") ? "pass": "fail")
+
+    const engines2 = await settings.getAvailableEngines()
+    console.log("case 3: get engine list: ", engines2["baidu"] ? "pass": "fail")
+
+    const emptyActiveEngine = await settings.getActiveEngine()
+    console.log("case 4: get empty active engine: ", !emptyActiveEngine ? "pass": "fail")
+
+    await settings.setActiveEngine("baidu")
+    const activeEngine = await settings.getActiveEngine()
+    console.log("case 5: set/get active engine: ", activeEngine.appid == "testbaiduappid" ? "pass": "fail")
+
+    await settings.delEngineBaidu()
+    const engines3 = await settings.getAvailableEngines()
+    console.log("case 6: del engine: ", !engines3["baidu"] ? "pass": "fail")
+
+    console.log("\n")
     
     console.log("=================== baidu translator test ======================")
     const isExistLicense = await baiduTranslator.existsLicense()
     if (!isExistLicense) {
-      const activateResult = await baiduTranslator.activate("","")
+      const activateResult = await baiduTranslator.activate("20151218000007985","cbL3SFQIP0xQZtXmnufY")
       if (activateResult.result != 'ok') {
-        await storage.del("baiduLicense")
+        await baiduTranslator.deactivate()
         throw new Error(activateResult.code + ": " + activateResult.msg)
       }
     }

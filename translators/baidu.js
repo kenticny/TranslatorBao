@@ -1,6 +1,6 @@
 import { md5 } from '../libs/md5/md5.js'
 import { detectMainLanguage } from '../libs/language_detect/language_detect.js'
-import { localStorage as storage } from '../libs/storage/storage.js'
+import { settings } from '../libs/settings/settings.js'
 
 class BaiduTranslator {
   constructor() {
@@ -10,7 +10,7 @@ class BaiduTranslator {
     }
   }
   async existsLicense() {
-    const license = await storage.get('baiduLicense')
+    const license = await settings.getEngineBaidu()
     if (!license) {
       return false
     }
@@ -20,17 +20,19 @@ class BaiduTranslator {
     return false
   }
   async activate(appid, secret) {
-    const baiduLicense = {appid, secret}
-    await storage.set('baiduLicense', baiduLicense)
+    await settings.setEngineBaidu(appid, secret)
     const transRes = await this.translate('apple')
     if (transRes.result == 'ok') {
       return {result: 'ok'}
     }
     return {result: 'error', code: 'InvalidAccount', msg: '激活失败'}
   }
+  async deactivate() {
+    return await settings.delEngineBaidu()
+  }
   async translate(query, fromLanguage, toLanguage) {
     try {
-      const license = await storage.get('baiduLicense')
+      const license = await settings.getEngineBaidu()
       if (!license.appid || !license.secret) {
         return {result: 'error', code: 'InvalidAccount', msg: '未激活'}
       }

@@ -31,6 +31,9 @@ chrome.management.get(chrome.runtime.id, async (extensionInfo) => {
     console.log("case 5: storage del value: ", await storage.get("test") == undefined ? "pass" : "fail")
     console.log("case 6: storage get other value: ", await storage.get("test2") == 123 ? "pass" : "fail")
 
+    await storage.del("test2")
+    await storage.del("test3")
+    await storage.del("test4")
     console.log("\n")
 
     console.log("=================== md5 test ======================")
@@ -79,13 +82,13 @@ chrome.management.get(chrome.runtime.id, async (extensionInfo) => {
     await settings.delEngineBaidu()
     const engines3 = await settings.getAvailableEngines()
     console.log("case 6: del engine: ", !engines3["baidu"] ? "pass": "fail")
-
+    await settings.reset()
     console.log("\n")
     
     console.log("=================== baidu translator test ======================")
     const isExistLicense = await baiduTranslator.existsLicense()
     if (!isExistLicense) {
-      const activateResult = await baiduTranslator.activate("20151218000007985","cbL3SFQIP0xQZtXmnufY")
+      const activateResult = await baiduTranslator.activate("testbaiduappid", "testbaidusecret")
       if (activateResult.result != 'ok') {
         await baiduTranslator.deactivate()
         throw new Error(activateResult.code + ": " + activateResult.msg)

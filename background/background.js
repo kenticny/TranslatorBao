@@ -56,7 +56,7 @@ chrome.management.get(chrome.runtime.id, async (extensionInfo) => {
     console.log("=================== baidu translator test ======================")
     const isExistLicense = await baiduTranslator.existsLicense()
     if (!isExistLicense) {
-      const activateResult = await baiduTranslator.activate("20151218000007985","cbL3SFQIP0xQZtXmnufY")
+      const activateResult = await baiduTranslator.activate("","")
       if (activateResult.result != 'ok') {
         await storage.del("baiduLicense")
         throw new Error(activateResult.code + ": " + activateResult.msg)
